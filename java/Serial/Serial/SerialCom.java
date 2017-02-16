@@ -14,24 +14,17 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
-
 import com.felhr.usbserial.UsbSerialDevice;
 import com.felhr.usbserial.UsbSerialInterface;
 import com.hoho.android.usbserial.driver.UsbSerialDriver;
 import com.hoho.android.usbserial.driver.UsbSerialPort;
 import com.hoho.android.usbserial.driver.UsbSerialProber;
-
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-
 public class SerialCom extends AppCompatActivity {
-
-
     TextView textView;
     EditText editText;
     UsbManager usbManager;
@@ -39,14 +32,8 @@ public class SerialCom extends AppCompatActivity {
     UsbSerialDevice serialPort;
     UsbDeviceConnection connection;
 
-
-
 public void connect(View view){
-
     try {
-
-
-
         UsbManager usbManager = (UsbManager) getSystemService(Context.USB_SERVICE);
         UsbDevice device = null;
         UsbDeviceConnection connection = null;
@@ -57,50 +44,31 @@ public void connect(View view){
                 device = entry.getValue();
 
                     connection = usbManager.openDevice(device);
-
             }
-
-
         }
 
         serialPort = UsbSerialDevice.createUsbSerialDevice(device, connection);
         if (serialPort != null) {
-
-
-
             if (serialPort.open()) {
-
-
                 serialPort.setBaudRate(4800);
                 serialPort.setDataBits(UsbSerialInterface.DATA_BITS_7);
                 serialPort.setStopBits(UsbSerialInterface.STOP_BITS_1);
                 serialPort.setParity(UsbSerialInterface.PARITY_EVEN);
                 serialPort.setFlowControl(UsbSerialInterface.FLOW_CONTROL_OFF);
                 Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show();
-
-
             } else {
                 Toast.makeText(this, "Not Open", Toast.LENGTH_SHORT).show();
-
             }
         } else {
             Toast.makeText(this, "No Driver", Toast.LENGTH_SHORT).show();
-
         }
-
     }
     catch (Exception cc){
         Toast.makeText(this, "Connection Error", Toast.LENGTH_SHORT).show();
     }
-
-
-
-
-
 }
 public void clear(View view){
     try {
-
 
     TextView Text=(TextView) findViewById(R.id.textView);
     Text.setText("");
@@ -114,10 +82,6 @@ try {
 catch (Exception e){
     Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show();
 }
-
-
-
-
 }
 public  void click(View view){
     try {
@@ -129,9 +93,6 @@ serialPort.write(ss.getBytes());
     catch (Exception cc){
         Toast.makeText(this, "Write/Read Error", Toast.LENGTH_SHORT).show();
     }
-
-
-
 }
    public UsbSerialInterface.UsbReadCallback mCallback = new UsbSerialInterface.UsbReadCallback()
     {
@@ -148,8 +109,6 @@ serialPort.write(ss.getBytes());
         }
         }
     };
-
-
 
     private void tvAppend(String tv, final CharSequence text) {
         //final TextView ftv = tv;
@@ -169,20 +128,9 @@ serialPort.write(ss.getBytes());
             }}
         });
     }
-
-
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_serial_com);
-
     }
-
-
-
-
-
 }
