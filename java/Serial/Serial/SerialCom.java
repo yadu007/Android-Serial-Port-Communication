@@ -1,4 +1,4 @@
-package synapsesystems.mine;
+package s.mine;
 
 import android.app.Activity;
 import android.app.PendingIntent;
